@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Details Form</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .error-message {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container mt-5">
+  <form id="employeeForm">
+    <div class="form-group">
+      <label for="empid">EmployeeID:</label>
+      <input type="text" class="form-control" id="empid" name="empid" required>
+      <span id="spanEmpid" class="error-message"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="empname">Employee Name:</label>
+      <input type="text" class="form-control" id="empname" name="empname" required>
+      <span id="spanEmpname" class="error-message"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="age">Age:</label>
+      <input type="text" class="form-control" id="age" name="age" required>
+      <span id="spanAge" class="error-message"></span>
+    </div>
+
+    <div class="form-group">
+      <label>Gender:</label>
+      <div class="form-check">
+        <input type="radio" class="form-check-input" id="male" name="gender" value="male" required>
+        <label class="form-check-label" for="male">Male</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" class="form-check-input" id="female" name="gender" value="female" required>
+        <label class="form-check-label" for="female">Female</label>
+      </div>
+      <span id="spanGender" class="error-message"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="designation">Designation:</label>
+      <input type="text" class="form-control" id="designation" name="designation" required>
+      <span id="spanDesignation" class="error-message"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="salary">Salary:</label>
+      <input type="text" class="form-control" id="salary" name="salary" required>
+      <span id="spanSalary" class="error-message"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location:</label>
+      <select class="form-control" id="location" name="location" required>
+        <option value="Ahmedabad">Ahmedabad</option>
+        <option value="Calcutta">Calcutta</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Mumbai">Mumbai</option>
+      </select>
+      <span id="spanLocation" class="error-message"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email ID:</label>
+      <input type="text" class="form-control" id="email" name="email" required>
+      <span id="spanEmail" class="error-message"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="doj">Date of Joining:</label>
+      <input type="text" class="form-control" id="doj" name="doj" placeholder="dd-mm-yyyy" required>
+      <span id="spanDoj" class="error-message"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="contact">Contact Number:</label>
+      <input type="text" class="form-control" id="contact" name="contact" required>
+      <span id="spanContact" class="error-message"></span>
+    </div>
+
+    <button type="button" class="btn btn-primary" onclick="validateForm()">Submit</button>
+  </form>
+</div>
+
+<script>
+  function validateForm() {
+    var empid = document.getElementById('empid').value;
+    if (empid.length < 5) {
+      document.getElementById('spanEmpid').innerText = 'EmployeeID should be at least 5 characters long.';
+    } else {
+      document.getElementById('spanEmpid').innerText = '';
+    }
+
+    var age = document.getElementById('age').value;
+    if (isNaN(age) || age <= 0) {
+      document.getElementById('spanAge').innerText = 'Age should be a number and greater than zero.';
+    } else {
+      document.getElementById('spanAge').innerText = '';
+    }
+
+    var email = document.getElementById('email').value;
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      document.getElementById('spanEmail').innerText = 'EmailID should be in the proper format.';
+    } else {
+      document.getElementById('spanEmail').innerText = '';
+    }
+
+    var doj = document.getElementById('doj').value;
+    var dateRegex = /^\d{2}-\d{2}-\d{4}$/;
+    if (!dateRegex.test(doj)) {
+      document.getElementById('spanDoj').innerText = 'Date of Joining should be in date format dd-mm-yyyy.';
+    } else {
+      document.getElementById('spanDoj').innerText = '';
+    }
+  }
+</script>
+
+</body>
+</html>
