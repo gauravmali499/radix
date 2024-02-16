@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Navigation Menu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth; /* Enable smooth scrolling */
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #444;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    section {
+      margin: 50px;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Website Title</h1>
+</header>
+
+<nav id="menu">
+  <!-- Menu items will be dynamically added here using JavaScript -->
+</nav>
+
+<section id="section1">
+  <h2>Section 1</h2>
+  <p>This is the content of Section 1.</p>
+</section>
+
+<section id="section2">
+  <h2>Section 2</h2>
+  <p>This is the content of Section 2.</p>
+</section>
+
+<section id="section3">
+  <h2>Section 3</h2>
+  <p>This is the content of Section 3.</p>
+</section>
+
+<script>
+  // Menu items data
+  const menuItems = [
+    { id: 'section1', text: 'Section 1' },
+    { id: 'section2', text: 'Section 2' },
+    { id: 'section3', text: 'Section 3' },
+  ];
+
+  // Function to create menu items dynamically
+  function createMenuItems() {
+    const menu = document.getElementById('menu');
+
+    menuItems.forEach(item => {
+      const listItem = document.createElement('li');
+      const anchor = document.createElement('a');
+      
+      anchor.href = `#${item.id}`;
+      anchor.textContent = item.text;
+      
+      listItem.appendChild(anchor);
+      menu.appendChild(listItem);
+    });
+  }
+
+  // Call the function to create menu items
+  createMenuItems();
+</script>
+
+</body>
+</html>
