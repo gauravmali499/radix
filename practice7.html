@@ -69,3 +69,10 @@
 
 </body>
 </html>
+
+
+
+// explanation
+In this example, each tab has a corresponding div with a unique ID. The changeTab function is called when a tab button is clicked, which hides all tabs and shows the selected tab. The pushState method is used to add the tab's ID to the browser's history, and the "popstate" event is used to handle back/forward button clicks.
+
+The initial tab is determined based on the URL hash during the page load, allowing users to share direct links to specific tabs.
