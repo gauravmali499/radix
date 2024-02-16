@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabbed Content</title>
+  <style>
+    .tab {
+      display: none;
+    }
+    .active-tab {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<div id="tabs">
+  <button onclick="changeTab('tab1')">Tab 1</button>
+  <button onclick="changeTab('tab2')">Tab 2</button>
+  <button onclick="changeTab('tab3')">Tab 3</button>
+</div>
+
+<div id="tabContent">
+  <div id="tab1" class="tab active-tab">
+    <h2>Tab 1 Content</h2>
+    <p>This is the content for Tab 1.</p>
+  </div>
+  <div id="tab2" class="tab">
+    <h2>Tab 2 Content</h2>
+    <p>This is the content for Tab 2.</p>
+  </div>
+  <div id="tab3" class="tab">
+    <h2>Tab 3 Content</h2>
+    <p>This is the content for Tab 3.</p>
+  </div>
+</div>
+
+<script>
+  function changeTab(tabId) {
+    // Hide all tabs
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.classList.remove('active-tab');
+    });
+
+    // Show the selected tab
+    const selectedTab = document.getElementById(tabId);
+    if (selectedTab) {
+      selectedTab.classList.add('active-tab');
+
+      // Add the state to the browser's history
+      const stateObj = { tab: tabId };
+      history.pushState(stateObj, '', `#${tabId}`);
+    }
+  }
+
+  // Listen for the popstate event to handle back/forward button clicks
+  window.addEventListener('popstate', function(event) {
+    const tabId = event.state ? event.state.tab : 'tab1';
+    changeTab(tabId);
+  });
+
+  // Handle initial page load or direct link to a specific tab
+  window.onload = function() {
+    const initialTabId = window.location.hash ? window.location.hash.substring(1) : 'tab1';
+    changeTab(initialTabId);
+  };
+</script>
+
+</body>
+</html>
