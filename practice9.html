@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Step Form</title>
+  <style>
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<div id="form">
+  <div class="form-step active" id="step1">
+    <h2>Step 1: Personal Information</h2>
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+    <br>
+    <button onclick="nextStep()">Next</button>
+  </div>
+
+  <div class="form-step" id="step2">
+    <h2>Step 2: Contact Information</h2>
+    <label for="email">Email:</label>
+    <input type="email" id="email" required>
+    <br>
+    <button onclick="prevStep()">Previous</button>
+    <button onclick="nextStep()">Next</button>
+  </div>
+
+  <div class="form-step" id="step3">
+    <h2>Step 3: Additional Details</h2>
+    <label for="comments">Comments:</label>
+    <textarea id="comments"></textarea>
+    <br>
+    <button onclick="prevStep()">Previous</button>
+    <button onclick="submitForm()">Submit</button>
+  </div>
+</div>
+
+<script>
+  let currentStep = 1;
+
+  function showStep(stepNumber) {
+    document.querySelectorAll('.form-step').forEach(step => {
+      step.classList.remove('active');
+    });
+
+    const currentStepElement = document.getElementById(`step${stepNumber}`);
+    if (currentStepElement) {
+      currentStepElement.classList.add('active');
+      currentStep = stepNumber;
+    }
+  }
+
+  function nextStep() {
+    if (currentStep < 3) {
+      showStep(currentStep + 1);
+      history.pushState({ step: currentStep }, '', `?step=${currentStep}`);
+    }
+  }
+
+  function prevStep() {
+    if (currentStep > 1) {
+      showStep(currentStep - 1);
+      history.pushState({ step: currentStep }, '', `?step=${currentStep}`);
+    }
+  }
+
+  function submitForm() {
+    // Perform form submission logic here
+
+    // For demonstration purposes, alert the collected data
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const comments = document.getElementById('comments').value;
+
+    alert(`Form submitted with data:\nName: ${name}\nEmail: ${email}\nComments: ${comments}`);
+  }
+
+  window.addEventListener('popstate', function(event) {
+    const stepNumber = event.state ? event.state.step : 1;
+    showStep(stepNumber);
+  });
+
+  // Handle initial page load or direct link to a specific step
+  window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const stepQueryParam = urlParams.get('step');
+    const initialStep = stepQueryParam ? parseInt(stepQueryParam) : 1;
+    showStep(initialStep);
+  };
+</script>
+
+</body>
+</html>
